@@ -4,6 +4,10 @@ All notable changes to this skill are documented here. The package version follo
 
 ## Unreleased
 
+- Answer blocks: standalone answer under the title, no plain-text label prefixes; clean `acceptedAnswer.text`. Script reports `first_p_label_prefix`, `schema_answer_texts`, and `schema_answer_label_prefix`.
+- E-E-A-T: prefer verifiable self-description over vague superlatives.
+- New `references/house-rules-acrenkey.md`: acre&key house style only, not generic rules.
+
 - verify-page.sh runs on Python 3.9+ (no backslash in f-string expressions).
 - robots.txt parsing follows RFC 9309: blank lines do not end a group, matching groups merge, BOM stripped, 4xx means allow all, sitemap URLs resolved.
 - Only the final hop's `X-Robots-Tag` counts; `googlebot`/`bingbot` meta and scoped headers are judged; other bots reported only.

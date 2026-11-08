@@ -110,6 +110,7 @@ class Page(HTMLParser):
         self.h2_follow = []  # list of text after each of first 8 h2
         self.cur_follow = []
         self.paras = []
+        self.first_p = None
         self.in_p = False
         self.p_buf = []
         self.links = set()
@@ -167,6 +168,8 @@ class Page(HTMLParser):
             self.in_title = False
         if tag == "p" and self.in_p:
             text = re.sub(r"\s+", " ", "".join(self.p_buf)).strip()
+            if self.first_p is None and text:
+                self.first_p = text
             if len(text.split()) >= 20:
                 self.paras.append(text)
             self.in_p = False
@@ -310,6 +313,26 @@ print(f"js_shell_suspect: {'yes' if len(text) < 500 and script_tags > 0 else 'no
 print("browser_render: nt")
 print("rendered_html: nt")
 
+LABEL_RX = re.compile(r"^\s*(direct answer|short answer|quick answer|answer|in short|summary|tl;?dr)\s*[:\-\u2013\u2014]", re.I)
+SCHEMA_LABEL_RX = re.compile(r"^\s*(direct answer|short answer|quick answer|answer|in short|summary|tl;?dr)\b", re.I)
+first_p = page.first_p or ""
+print(f"first_p_words: {len(first_p.split())}")
+print(f"first_p_label_prefix: {'yes' if LABEL_RX.match(first_p) else 'no'}")
+
+def answer_texts(node):
+    if isinstance(node, dict):
+        for key in ("acceptedAnswer", "suggestedAnswer"):
+            ans = node.get(key)
+            for a in (ans if isinstance(ans, list) else [ans]):
+                if isinstance(a, dict) and isinstance(a.get("text"), str):
+                    yield a["text"]
+        for v in node.values():
+            yield from answer_texts(v)
+    elif isinstance(node, list):
+        for v in node:
+            yield from answer_texts(v)
+
+schema_answers, schema_labelled = 0, 0
 print(f"jsonld_blocks: {len(page.ld)}")
 for i, raw in enumerate(page.ld, 1):
     try:
@@ -326,6 +349,13 @@ for i, raw in enumerate(page.ld, 1):
         if isinstance(n, dict):
             types.append(str(n.get("@type")))
     print(f"jsonld_{i}_types: {', '.join(types)}")
+    for t in answer_texts(data):
+        schema_answers += 1
+        plain = re.sub(r"<[^>]+>", " ", html.unescape(t))
+        if SCHEMA_LABEL_RX.match(plain):
+            schema_labelled += 1
+print(f"schema_answer_texts: {schema_answers}")
+print(f"schema_answer_label_prefix: {schema_labelled}")
 
 print(f"internal_outlinks: {len(internal)}")
 for u in internal[:30]:

@@ -40,6 +40,8 @@ scenario x /403 "403 is nt, not fail" '^http_check: fail' '^indexability: nt' '^
 scenario x /dupcanon "identical canonicals count once" '^canonical_unique_count: 1' '^canonical_differs: none'
 scenario x /shell "JS shell flagged" '^js_shell_suspect: yes'
 scenario x /page "normal page not a shell" '^js_shell_suspect: no'
+scenario x /label "plain label prefix flagged" '^first_p_label_prefix: yes' '^schema_answer_texts: 2' '^schema_answer_label_prefix: 1'
+scenario x /eyebrow "styled eyebrow not flagged" '^first_p_label_prefix: no' '^schema_answer_label_prefix: 0'
 scenario x "/canq?b=2" "canonical differs by query" '^canonical_matches_final: no' '^canonical_differs: query'
 scenario x "/canq?a=1" "canonical with same query matches" '^canonical_matches_final: yes' '^canonical_differs: none'
 

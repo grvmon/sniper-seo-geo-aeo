@@ -66,6 +66,11 @@ class H(http.server.BaseHTTPRequestHandler):
             return self.send(200, PAGE % '<link rel="canonical" href="/dupcanon"><link rel="canonical" href="/dupcanon">')
         if p == "/shell":
             return self.send(200, '<html><head><title>App</title></head><body><div id="root"></div><script src="/app.js"></script></body></html>')
+        if p == "/label":
+            ld = '<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Q","acceptedAnswer":{"@type":"Answer","text":"Direct answer: It is a receipt."}},{"@type":"Question","name":"Q2","acceptedAnswer":{"@type":"Answer","text":"It is a deed."}}]}</script>'
+            return self.send(200, '<html><head><title>T</title>%s</head><body><h1>H</h1><p>Direct answer: An allotment letter is a booking receipt.</p></body></html>' % ld)
+        if p == "/eyebrow":
+            return self.send(200, '<html><head><title>T</title></head><body><h1>H</h1><p id="direct-answer"><strong>In Short</strong> An allotment letter is a booking receipt.</p></body></html>')
         if p == "/404":
             return self.send(404, PAGE % "")
         if p.startswith("/canq"):

@@ -158,6 +158,7 @@ Badge:
 | `references/schema.md` | Visible, true markup; linked blocks; FAQ rich results after 7 May 2026 |
 | `references/verticals.md` | Comparison, calculator, local advisory, product |
 | `references/example-acrenkey.md` | Worked audit fetched 2026-11-08. Copy its shape. Do not copy its business facts onto another site. |
+| `references/house-rules-acrenkey.md` | acre&key house style only (eyebrow, nav, titles, RERA sections). Not generic rules. |
 | `scripts/verify-page.sh` | Executable fetch of status, robots, canonical, sitemap, schema, and outlinks |
 
 ## FAQ

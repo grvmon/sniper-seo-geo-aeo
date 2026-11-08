@@ -63,7 +63,16 @@ Then close these checks. Each is `pass`, `fail`, or `NT`.
 5. **Schema.** JSON-LD parses. Every value is visible on the page and true. `sameAs` URLs were opened and name the same entity. See `references/schema.md`.
 6. **Internal links and orphans.** Count same-host links on the page. An orphan is a sitemap URL with no internal link from the crawled set. Without that crawl, orphan status is `NT`. A thin homepage link list is a lead, not an orphan list.
 
+A site's own house style, if any, lives in a separate reference file and is applied only to that site. For acre&key, see `references/house-rules-acrenkey.md`.
+
 Crawler classes and the owner decision for training bots are in `references/platforms.md`. `llms.txt` is optional. Google Search ignores it and it does not change Google rankings (AI optimization guide; updates log 2026-06-15). If one exists, its claims must also be visible on the site.
+
+### Answer blocks
+
+On a question or answer page, put a short, standalone answer right under the title or byline: it should still make sense if quoted alone. There is no required word count (see Retired claims).
+
+- Do not start that paragraph with a plain-text label such as `Direct answer:`, `Summary:`, or `TL;DR:`. A visually styled eyebrow (for example a `<strong>` badge with no colon) is fine. The script reports `first_p_label_prefix`.
+- In `QAPage` or `FAQPage` JSON-LD, `acceptedAnswer.text` and `suggestedAnswer.text` must be clean prose with no label prefix, including the eyebrow text. The script reports `schema_answer_label_prefix` (count of labelled answers). The text must also match what is visible on the page.
 
 ## 3. Experience, expertise, authoritativeness, trust
 
@@ -75,6 +84,8 @@ Judge four visible things:
 - **Qualified review.** Legal, tax, structural, or medical claims name a qualified reviewer, or the page says it is not that advice.
 - **Primary evidence.** A document, calculation, dated observation, or method a reader can inspect. Attribution does not replace original work.
 - **Corrections.** YMYL pages link to a visible corrections policy, or show a dated correction.
+
+- **Verifiable self-description.** Replace vague superlatives about the publisher ("unbiased", "best", "most trusted") with checkable wording: what the method is, who is registered or qualified, and what the reader can inspect.
 
 Do not require a Wikidata item, a 2,000-word length, or a ban on em dashes. Google says there is no preferred word count and no requirement to chunk pages. Plain language is an editing choice: address the reader when you are advising them, keep statutory disclaimers, and do not invent client results.
 
