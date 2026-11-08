@@ -60,6 +60,12 @@ class H(http.server.BaseHTTPRequestHandler):
             return self.send(200, PAGE % "", hdr=[("X-Robots-Tag", "otherbot: noindex")])
         if p == "/xrt-google":
             return self.send(200, PAGE % "", hdr=[("X-Robots-Tag", "googlebot: noindex")])
+        if p == "/403":
+            return self.send(403, PAGE % "")
+        if p == "/dupcanon":
+            return self.send(200, PAGE % '<link rel="canonical" href="/dupcanon"><link rel="canonical" href="/dupcanon">')
+        if p == "/shell":
+            return self.send(200, '<html><head><title>App</title></head><body><div id="root"></div><script src="/app.js"></script></body></html>')
         if p == "/404":
             return self.send(404, PAGE % "")
         if p.startswith("/canq"):

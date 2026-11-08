@@ -258,9 +258,13 @@ if page.robots_other:
     print("meta_robots_other_agent: " + " | ".join(page.robots_other))
 
 rules = " ".join(xrobots + page.robots).lower()
-if not status.startswith("2"):
-    rules += " noindex"  # a non-2xx final response is not indexable
-if "noindex" in rules or re.search(r"\bnone\b", rules):
+status_blocked = status in ("401", "403", "429") or status.startswith("5")
+if not status.startswith("2") and not status_blocked:
+    rules += " noindex"  # 3xx loop, 404, 410 and other non-2xx are not indexable
+if status_blocked:
+    indexability = "nt"
+    print(f"index_note: status {status} may be bot blocking or an outage for this user agent; confirm with URL Inspection")
+elif "noindex" in rules or re.search(r"\bnone\b", rules):
     indexability = "fail"
 elif not xrobots and not page.robots:
     indexability = "pass"
@@ -271,17 +275,19 @@ else:
         print("index_follow_meta: present; explicit index,follow is optional")
 print(f"indexability: {indexability}")
 
+canon_unique = list(dict.fromkeys(urljoin(final_url, c) for c in page.canonical))
 print(f"canonical_count: {len(page.canonical)}")
+print(f"canonical_unique_count: {len(canon_unique)}")
 for i, c in enumerate(page.canonical, 1):
     abs_c = urljoin(final_url, c)
     print(f"canonical_{i}: {abs_c}")
-if len(page.canonical) == 1:
-    abs_c = urljoin(final_url, page.canonical[0])
+if len(canon_unique) == 1:
+    abs_c = canon_unique[0]
     c_status, _, _ = curl_split(abs_c)
     print(f"canonical_fetch_status: {c_status}")
     print(f"canonical_matches_final: {'yes' if norm(abs_c) == norm(final_url) else 'no'}")
     print(f"canonical_differs: {canonical_diff(abs_c, final_url)}")
-elif len(page.canonical) == 0:
+elif len(canon_unique) == 0:
     print("canonical_fetch_status: nt")
     print("canonical_matches_final: nt")
     print("canonical_differs: nt")
@@ -298,6 +304,9 @@ for t in h1s[:3]:
     print(f"h1: {t}")
 print(f"hreflang_count: {page.hreflang}")
 print(f"initial_html_text_chars: {len(text)}")
+script_tags = len(re.findall(r"(?i)<script\b", body))
+print(f"script_tags: {script_tags}")
+print(f"js_shell_suspect: {'yes' if len(text) < 500 and script_tags > 0 else 'no'}")
 print("browser_render: nt")
 print("rendered_html: nt")
 
