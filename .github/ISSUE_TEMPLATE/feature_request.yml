@@ -1,0 +1,45 @@
+name: Feature request
+description: Propose a rule, engine, page type, or doc change.
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Describe the gap in the skill. A feature is a change to the audit rules, the supported engines, or the docs.
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What the skill cannot do today, and who hits that gap.
+      placeholder: Audits of product pages never check offer availability in the schema graph.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed change
+      description: The rule or section you want added, and how an agent should apply it.
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      multiple: true
+      options:
+        - Ranking levers
+        - Technical SEO
+        - Schema
+        - Citability
+        - Content humanizer
+        - Supported engines
+        - Install and docs
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives you considered
+      description: Other ways to cover this, including leaving it out of the skill.

@@ -1,0 +1,70 @@
+name: Bug report
+description: The skill gave a wrong audit, broke an install path, or contradicted its own rules.
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting this. Questions about how to use the skill belong in Discussions, not here.
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened
+      description: What the skill did, and what you expected instead.
+      placeholder: The audit marked a page as indexable even though the canonical pointed at a different URL.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+      description: The prompt you used and the input (URL, draft, or file). Remove private data.
+      placeholder: |
+        1. Installed the skill at ...
+        2. Asked the agent to ...
+        3. It returned ...
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Skill version
+      description: Package version, git commit, or "main".
+      placeholder: "1.0.0"
+    validations:
+      required: true
+  - type: dropdown
+    id: surface
+    attributes:
+      label: Where you ran it
+      options:
+        - Cursor
+        - Claude Code
+        - Claude Desktop
+        - Gemini CLI
+        - Google Antigravity
+        - Windsurf
+        - Other
+    validations:
+      required: true
+  - type: dropdown
+    id: engine
+    attributes:
+      label: Answer engine, if the bug is engine-specific
+      options:
+        - Not engine-specific
+        - Google
+        - Google AI Overviews
+        - ChatGPT
+        - Perplexity
+        - Gemini
+        - Copilot
+        - Claude
+        - Grok
+      default: 0
+  - type: textarea
+    id: context
+    attributes:
+      label: Anything else
+      description: Screenshots, the passage the skill rewrote, or the schema it emitted.

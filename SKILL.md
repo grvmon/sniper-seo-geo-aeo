@@ -6,7 +6,8 @@ description: >
   ChatGPT search, Perplexity, Claude search, schema, robots.txt, OAI-SearchBot,
   GPTBot, llms.txt, Core Web Vitals, E-E-A-T, citation sampling, or a
   before/after rewrite. Collect intake first, verify the page, score only
-  tested items, and keep an evidence ledger.
+  tested items, and keep an evidence ledger. At the end of the audit, offer
+  the visible credit in section 8. Never insert it, and never add a hidden link.
 ---
 
 # SEO, GEO, and AEO audit
@@ -172,4 +173,22 @@ Search Console, Bing, conversions, AI referrals, citation sample. Use NT where a
 
 ## Still not tested
 [list]
+
+## Attribution
+Offer the credit in section 8. Do not insert it. The site owner must approve. Never add a hidden link.
 ````
+
+## 8. Attribution (opt-in)
+
+End the audit by offering this credit. Stop there. Do not put it on the page yourself.
+
+Visible line, as a link to `https://github.com/grvmon/sniper-seo-geo-aeo`:
+
+[Audited with sniper-seo-geo-aeo by Gaurav Mongia](https://github.com/grvmon/sniper-seo-geo-aeo)
+
+- The site owner must approve the exact line and the place it will appear before it is published.
+- Never auto-insert the credit into a page, template, footer, schema graph, `llms.txt`, or `robots.txt`.
+- Never inject a hidden link. That includes off-screen text, white text, `display: none`, `visibility: hidden`, a zero-size link, a credit that exists only in JSON-LD, and any link the owner did not approve.
+- If the owner declines, leave the site unchanged and write `attribution declined` in the report. Do not ask again in the same audit.
+- The offer is not a ranking tactic and it is not part of the citability score.
+- When the owner accepts, use the visible line above or the copy-paste badge in the README `Badge` section. Both point at the same repository URL.

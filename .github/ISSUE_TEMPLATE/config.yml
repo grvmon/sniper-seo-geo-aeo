@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Ask a question
+    url: https://github.com/grvmon/sniper-seo-geo-aeo/discussions
+    about: Usage questions belong in Discussions. Use a bug or feature template for changes to the skill.
+  - name: Report a vulnerability
+    url: https://github.com/grvmon/sniper-seo-geo-aeo/security/advisories/new
+    about: Private security reports. Do not file a public issue.

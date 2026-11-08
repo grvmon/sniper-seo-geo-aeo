@@ -1,0 +1,22 @@
+cff-version: 1.2.0
+title: "Sniper SEO + GEO + AEO"
+message: "If you use this skill in research or a write-up, please cite it as below."
+type: software
+authors:
+  - family-names: Mongia
+    given-names: Gaurav
+    website: "https://www.linkedin.com/in/gaurav-a-mongia"
+repository-code: "https://github.com/grvmon/sniper-seo-geo-aeo"
+url: "https://github.com/grvmon/sniper-seo-geo-aeo"
+abstract: "Agent skill for SEO, GEO and AEO audits: finds and fixes issues so pages rank in Google and get cited by AI answer engines."
+keywords:
+  - seo
+  - geo
+  - aeo
+  - chatgpt
+  - perplexity
+  - gemini
+  - agent-skill
+license: MIT
+version: 1.0.0
+date-released: 2026-11-08

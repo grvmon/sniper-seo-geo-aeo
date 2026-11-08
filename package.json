@@ -1,0 +1,39 @@
+{
+  "name": "@grvmon/sniper-seo-geo-aeo",
+  "version": "1.0.0",
+  "description": "Agent skill for SEO, GEO and AEO audits: finds and fixes issues so pages rank in Google and get cited by AI answer engines.",
+  "author": "Gaurav Mongia (https://www.linkedin.com/in/gaurav-a-mongia)",
+  "homepage": "https://github.com/grvmon/sniper-seo-geo-aeo",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/grvmon/sniper-seo-geo-aeo.git"
+  },
+  "bugs": {
+    "url": "https://github.com/grvmon/sniper-seo-geo-aeo/issues"
+  },
+  "keywords": [
+    "seo",
+    "geo",
+    "aeo",
+    "chatgpt",
+    "perplexity",
+    "gemini",
+    "agent-skill"
+  ],
+  "license": "MIT",
+  "files": [
+    "SKILL.md",
+    "references",
+    "scripts",
+    "README.md",
+    "LICENSE",
+    "CONTRIBUTING.md",
+    "CODE_OF_CONDUCT.md",
+    "SECURITY.md",
+    "CHANGELOG.md",
+    "CITATION.cff"
+  ],
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  }
+}
