@@ -2,9 +2,9 @@
 
 Agent skill for SEO, GEO and AEO audits: finds and fixes issues so pages rank in Google and get cited by AI answer engines.
 
-[![Release](https://img.shields.io/github/v/release/grvmon/sniper-seo-geo-aeo?display_name=tag&sort=semver)](https://github.com/grvmon/sniper-seo-geo-aeo/releases)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Topics](https://img.shields.io/github/topics/grvmon/sniper-seo-geo-aeo)](https://github.com/grvmon/sniper-seo-geo-aeo)
+[![Release](https://img.shields.io/github/v/release/grvmon/sniper-seo-geo-aeo)](https://github.com/grvmon/sniper-seo-geo-aeo/releases)
+[![License: MIT](https://img.shields.io/github/license/grvmon/sniper-seo-geo-aeo)](https://github.com/grvmon/sniper-seo-geo-aeo/blob/main/LICENSE)
+[![Topics](https://img.shields.io/badge/topics-seo%20%C2%B7%20geo%20%C2%B7%20aeo-0f172a)](https://github.com/grvmon/sniper-seo-geo-aeo)
 
 Google's [AI features documentation](https://developers.google.com/search/docs/appearance/ai-features) says AI Overviews and AI Mode use the same Search systems as the rest of Google Search, with no extra technical requirements. The [generative AI optimization guide](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide) (updated 2026-07-10) says there is no special schema and that Google Search ignores `llms.txt`. Other products document their own crawlers. [OpenAI](https://developers.openai.com/api/docs/bots) separates `OAI-SearchBot` (search), `GPTBot` (training), and `ChatGPT-User` (a person asked for a fetch).
 
@@ -14,6 +14,7 @@ The procedure is [`SKILL.md`](SKILL.md). Short guides are in the [wiki](https://
 
 ## Contents
 
+- [Wiki](https://github.com/grvmon/sniper-seo-geo-aeo/wiki)
 - [Features](#features)
 - [Supported engines](#supported-engines)
 - [Install](#install)

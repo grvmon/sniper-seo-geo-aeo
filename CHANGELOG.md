@@ -2,6 +2,11 @@
 
 All notable changes to this skill are documented here. The package version follows [Semantic Versioning](https://semver.org/).
 
+## Unreleased
+
+- README release, license, and topics badges use shields.io URLs that return an SVG.
+- Wiki guides: Home, Installation, Usage, Supported Engines, FAQ, and Contributing.
+
 ## 1.0.0 - 2026-11-08
 
 - First packaged release of the Sniper SEO, GEO, and AEO agent skill.
