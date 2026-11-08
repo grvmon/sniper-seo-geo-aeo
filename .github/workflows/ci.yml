@@ -1,0 +1,37 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ["3.9", "3.10", "3.11", "3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Compile embedded Python
+        run: |
+          sed -n "/<< 'PY'/,/^PY$/p" scripts/verify-page.sh | sed '1d;$d' > /tmp/vp.py
+          python -c "import sys; compile(open('/tmp/vp.py').read(), 'verify', 'exec'); print(sys.version)"
+      - name: Fixture tests
+        run: |
+          python3 -V
+          bash tests/run.sh
+
+  shellcheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: shellcheck
+        run: shellcheck -S warning scripts/verify-page.sh tests/run.sh
