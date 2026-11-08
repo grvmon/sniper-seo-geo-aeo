@@ -22,7 +22,7 @@ Do not mark testimonials written by the business, or star ratings the business a
 
 ## Pattern
 
-This is a shape, not a live business. Two blocks, linked by `@id`, are enough.
+This is a shape, not a live business. Three blocks, linked by `@id`, are enough.
 
 ```html
 <script type="application/ld+json">
@@ -32,6 +32,16 @@ This is a shape, not a live business. Two blocks, linked by `@id`, are enough.
   "@id": "https://example.com/#organization",
   "name": "Example Advisory",
   "url": "https://example.com/"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": "https://example.com/#website",
+  "url": "https://example.com/",
+  "name": "Example Advisory",
+  "publisher": { "@id": "https://example.com/#organization" }
 }
 </script>
 <script type="application/ld+json">

@@ -45,20 +45,21 @@ Stop and fill this in before recommending anything. Use `NT` for unknown fields.
 
 ## 2. Verify
 
-Run the executable check from the skill directory:
+Run the check with `bash` and the skill's absolute path, from any working directory:
 
 ```bash
-scripts/verify-page.sh 'https://example.com/page/'
+bash <skill-dir>/scripts/verify-page.sh 'https://example.com/page/'
 ```
 
-Exit 0 means the URL responded. Exit 2 means the fetch failed. The script reports pass/fail facts and prints `nt` for anything it did not do. It is not a rank checker.
+Exit 0 means a response was saved, even a 404. Exit 2 means usage error, missing `curl`/`python3`, or a failed fetch. The script reports pass/fail facts and prints `nt` for anything it did not do. It is not a rank checker.
 
 Then close these checks. Each is `pass`, `fail`, or `NT`.
 
+0. **HTTP status and redirects.** `http_check: pass` needs a 2xx final response. Report `hop_status`. More than one redirect, or a 302/307 on a permanent URL, is a finding. A non-2xx page is `fail` and not indexable.
 1. **Rendered HTML.** The script reads the HTTP body only (`browser_render: nt`). If that body contains the main text, you may audit it and still mark the browser render `NT`. If the body is a JavaScript shell, content scores stay `NT` until you compare URL Inspection or a rendered DOM.
-2. **robots.txt, meta robots, and `X-Robots-Tag`.** `noindex` or `none` is `fail` when the URL should be indexed. A missing `index, follow` meta is `pass`: Google's default is `all`, and an explicit tag has no extra effect ([robots meta tag](https://developers.google.com/search/docs/crawling-indexing/robots-meta-tag), updated 2026-03-24). The more restrictive rule wins when both the header and the meta tag are set.
-3. **Canonical.** One absolute HTTPS URL, fetched without an error, and intentional if it differs from the final URL.
-4. **Sitemap.** The URL is in a sitemap declared from robots.txt. Membership `NT` if the sitemap is an index the script did not expand.
+2. **robots.txt, meta robots, and `X-Robots-Tag`.** Only the final response's headers count. `robots`, `googlebot`, and `bingbot` meta tags and bot-scoped headers for those bots are judged; other bots are listed as `*_other_agent` and not judged. `noindex` or `none` is `fail` when the URL should be indexed. A missing `index, follow` meta is `pass`: Google's default is `all`, and an explicit tag has no extra effect ([robots meta tag](https://developers.google.com/search/docs/crawling-indexing/robots-meta-tag), updated 2026-03-24). The more restrictive rule wins when both the header and the meta tag are set.
+3. **Canonical.** One absolute HTTPS URL, fetched without an error, and intentional if it differs from the final URL. `canonical_differs` names the difference: `query`, `trailing_slash`, `path`, or `scheme_or_host`.
+4. **Sitemap.** The URL is in a sitemap declared from robots.txt. The script reads every declared sitemap, expands indexes, and unzips `.gz`, up to 20 files. Membership is `NT` when any file failed or the cap was hit.
 5. **Schema.** JSON-LD parses. Every value is visible on the page and true. `sameAs` URLs were opened and name the same entity. See `references/schema.md`.
 6. **Internal links and orphans.** Count same-host links on the page. An orphan is a sitemap URL with no internal link from the crawled set. Without that crawl, orphan status is `NT`. A thin homepage link list is a lead, not an orphan list.
 
@@ -90,7 +91,7 @@ Two outputs. Do not blend them, and do not publish a `/50` technical score.
 | answer | 30 | `floor(10 × hits / n + 0.5)` | First `n` H2s in order, `n = min(8, count)`. No H2s: use the block under the H1 and `n = 1`. A hit: the first sentence states the heading's conclusion. |
 | contain | 25 | `floor(10 × passes / n + 0.5)` | First 8 paragraphs of at least 20 words, or fewer if the page has fewer. `n` is the sample size. A pass: the first sentence does not use it, this, they, these, those, we, our, or I unless that paragraph names the referent. |
 | structure | 20 | Start at 10, floor at 0 | Heading outline. Subtract 4 if H1 count is not 1. Subtract 2 if a level is skipped. Subtract 2 if a comparison of 3+ items has no table, list, or heading per item. Subtract 2 if a step sequence is prose and the page has no ordered list. |
-| sourced | 15 | `0` if no checkable claims; else `floor(10 × sourced / n + 0.5)` | Up to 8 claims that state a number, date, price, statute, or registration. `n` is how many you examined. Sourced means a document name, statute, or URL sits next to the claim. The publisher's own price counts when the page states it as their price. |
+| sourced | 15 | `NT` if no checkable claims; else `floor(10 × sourced / n + 0.5)` | Up to 8 claims that state a number, date, price, statute, or registration. `n` is how many you examined. Sourced means a document name, statute, or URL sits next to the claim. The publisher's own price counts when the page states it as their price. |
 | original | 10 | 10, 5, or 0 | 10: a method, dataset, calculation, or first-hand observation, with how it was produced, absent from every competitor page you opened. 5: the publisher's own worked example of a method competitors also use. 0: restates those pages. |
 
 `NT` if that evidence was not collected. `original` is `NT` when the competitor URLs were not opened. Do not turn `NT` into 0.
@@ -136,6 +137,7 @@ URL, market, intent, competitors, access, baseline, training choice, corrections
 ## Technical checks
 | Check | Result | Evidence |
 | --- | --- | --- |
+| HTTP status / redirects | pass / fail / NT | |
 | Rendered HTML | pass / fail / NT | |
 | robots / X-Robots-Tag | pass / fail / NT | |
 | Canonical | pass / fail / NT | |
@@ -155,6 +157,11 @@ URL, market, intent, competitors, access, baseline, training choice, corrections
 coverage: [n]/100
 overall: [n] or NT
 formula: floor(100 × raw / coverage + 0.5)
+
+## Top 3 fixes
+| Rank | Fix | Impact | Effort | Evidence id |
+| --- | --- | --- | --- | --- |
+| 1 | | high / med / low | high / med / low | |
 
 ## Ledger
 [table from section 5]

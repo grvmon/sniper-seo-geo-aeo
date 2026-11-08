@@ -58,8 +58,10 @@ Search, user-triggered fetch, and training are different jobs. Leave every train
 ### Google Antigravity and Gemini CLI
 
 ```bash
-git clone https://github.com/grvmon/sniper-seo-geo-aeo.git ~/.gemini/config/skills/sniper-seo-geo-aeo
+git clone https://github.com/grvmon/sniper-seo-geo-aeo.git ~/.gemini/skills/sniper-seo-geo-aeo
 ```
+
+Gemini CLI also reads `~/.agents/skills/` ([Gemini CLI skills docs](https://geminicli.com/docs/cli/skills/)).
 
 ### Claude Code and Claude Desktop
 
@@ -95,7 +97,7 @@ Package page: [github.com/grvmon/sniper-seo-geo-aeo/pkgs/npm/sniper-seo-geo-aeo]
 1. Install the skill with one of the methods above.
 2. Ask for an SEO audit, a crawler review, a schema pass, or a before/after rewrite. Name the engine when you care about one.
 3. The skill fills the intake first. Unknown fields stay `NT`.
-4. It runs `scripts/verify-page.sh` from the skill directory, then scores only the categories it could test.
+4. It runs `bash <skill-dir>/scripts/verify-page.sh`, then scores only the categories it could test.
 5. It returns the report template in [`SKILL.md`](SKILL.md): technical checks, citability, ledger, drafted changes, measurement, and what is still not tested.
 6. At the end it **offers** the credit in [Badge](#badge). It does not insert that credit. The site owner must approve. Never inject a hidden link into the site.
 
