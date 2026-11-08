@@ -1,400 +1,175 @@
 ---
 name: sniper-seo-geo-aeo
-description: The definitive modern SEO, GEO (Generative Engine Optimization), and AEO (Answer Engine Optimization) master skill. Unifies traditional Google/Bing ranking factors with AI answer engine citation mechanics (Google AI Overviews, ChatGPT Search, Perplexity, Gemini, Claude). Covers algorithmic ranking levers (Information Gain, NavBoost dwell signals, E-E-A-T entity graphs), the Content Humanizer (writing for real humans, plain English, conversational empathy, anti-AI cadence), technical crawlability & AI crawler permissions, /llms.txt, full Schema @graph generation, 45-word extractable answer passages, platform-specific GEO matrices, and regression drift detection.
+description: >
+  Audit or revise a URL for Google Search, Bing, and AI answer engines.
+  Use when the user asks for an SEO audit, GEO, AEO, AI Overviews, AI Mode,
+  ChatGPT search, Perplexity, Claude search, schema, robots.txt, OAI-SearchBot,
+  GPTBot, llms.txt, Core Web Vitals, E-E-A-T, citation sampling, or a
+  before/after rewrite. Collect intake first, verify the page, score only
+  tested items, and keep an evidence ledger.
 ---
 
-# Sniper SEO + GEO + AEO Master Operating System
+# SEO, GEO, and AEO audit
 
-> **The Modern Search Law (2026):**
-> What ranks #1 on Google is precisely what AI answer engines (ChatGPT Search, Perplexity, Claude, Gemini, Google AI Overviews) synthesize and cite. Both demand the exact same foundation: machine-readable infrastructure, verified entity knowledge graphs, high information gain, and direct, extractable answers.
+Google's AI Overviews and AI Mode use Google Search ranking systems. There is no extra file, schema type, or word count required to appear in them. Other answer engines publish their own crawlers. Record what you fetched, score only that, and leave everything else as `NT` (not tested).
 
----
+Read `references/platforms.md` for crawlers and Core Web Vitals, `references/schema.md` when you touch structured data, and `references/verticals.md` for page types. Copy the shape of `references/example-acrenkey.md` for a full audit.
 
-## 1. The 7 Algorithmic Ranking Levers
+## Sources to follow
 
-Every audit, content brief, or technical recommendation must satisfy these 7 algorithmic and behavioral mechanics:
+- [AI features and your website](https://developers.google.com/search/docs/appearance/ai-features) (page updated 2025-12-10)
+- [Search documentation updates](https://developers.google.com/search/updates) (FAQ rich results end 2026-05-07; FAQ docs removed in the 2026-06-15 notes; llms.txt note 2026-06-15)
+- [OpenAI crawlers](https://developers.openai.com/api/docs/bots)
+- [Optimizing for generative AI features](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide) (updated 2026-07-10)
+- [Helpful, reliable, people-first content](https://developers.google.com/search/docs/fundamentals/creating-helpful-content)
 
-```
-                            THE 2026 RANKING ALGORITHM
- ┌──────────────────────────────────────┬──────────────────────────────────────┐
- │     TRADITIONAL SERP (GOOGLE)        │       AI ANSWER ENGINES (AEO/GEO)    │
- ├──────────────────────────────────────┼──────────────────────────────────────┤
- │ 1. Information Gain Score (Patent)   │ 5. Passage Extractability & RAG      │
- │ 2. NavBoost & Click Satisfaction     │ 6. Entity Consensus & Co-occurrence  │
- │ 3. Deep E-E-A-T & Knowledge Graph    │ 7. High Fact-to-Token Density        │
- │ 4. PageRank & Anchor Equity Flow     │                                      │
- └──────────────────────────────────────┴──────────────────────────────────────┘
-```
+## Retired claims
 
-### Lever 1: Information Gain Score (Google Patent)
-- **The Mechanic:** Google detects whether a page merely summarizes existing top-10 SERP results. Duplicate sentiment or rephrased consensus receives an Information Gain penalty.
-- **The Rule:** Every page must include at least **two novel data points**: proprietary calculations, original survey statistics, dedicated diagrams, verified local statutory references, or direct expert verdict quotes.
+Do not reuse these. They were stated here without a dated primary source: an 11% cross-engine citation overlap, "92% of AI Overview citations come from the top 10", "48% of ChatGPT citations are Wikipedia-class domains", a 3× table-extraction rate, a required 40–55 word answer, an information-gain patent penalty, a 5-second dwell rule, and a required 2,000-word guide. A hypothesis is allowed only when the ledger names a document and a date. Otherwise delete the claim.
 
-### Lever 2: NavBoost & Searcher Task Accomplishment (STA)
-- **The Mechanic:** User interaction signals (click satisfaction, dwell time, and absence of pogo-sticking back to the SERP) govern rank retention.
-- **The Rule:** Time-to-Answer must be under **5 seconds**. The primary search answer must appear above the fold. Never force the user to scroll through introductory filler or "What is X?" before answering a transactional or navigational query.
+## 1. Intake
 
-### Lever 3: Deep Entity Disambiguation (Knowledge Graph)
-- **The Mechanic:** Search engines index *entities*, not keyword strings. Ambiguous organizations or pseudonymous authors receive low trust scores.
-- **The Rule:** Real `Person` author schemas linked via `sameAs` to credible external profiles (LinkedIn, Wikipedia, Wikidata, ORCID). Author entities must declare explicit topic competence (`knowsAbout`).
+Stop and fill this in before recommending anything. Use `NT` for unknown fields.
 
-### Lever 4: Passage Extractability & RAG Chunking
-- **The Mechanic:** LLMs chunk web pages into 100–300 token passages. Vector similarity selects passages that are 100% self-contained and answer questions directly.
-- **The Rule:** The **45-Word Answer Box**: immediately beneath each question-based `<h2>` or `<h3>`, provide a 40–55 word direct, factual declaration. No opening conjunctions ("However", "So"), no pronouns without antecedents.
+| Field | What to record |
+| --- | --- |
+| URL | The canonical URL under audit |
+| Market | Country, language, city |
+| Intent | The query, and one of: informational, commercial, transactional, navigational |
+| Competitors | URLs the owner names. Do not invent a set |
+| Access | Which of these you can open: public URL, rendered HTML, Search Console, Bing Webmaster, analytics, logs |
+| Baseline | Current index status, queries, conversions. `NT` if the tool is closed |
+| Training crawlers | Owner choice per bot: `allow`, `disallow`, or `undecided`. Default is `undecided` |
+| Corrections policy | URL of a visible corrections page, or `NT` |
 
-### Lever 5: Search Intent to Layout Mapping (SXO)
-- **The Mechanic:** Matching the exact visual layout Google and AI engines expect for the target query type:
-  - *Comparison / Alternative queries:* Mandatory responsive HTML/Markdown comparison table.
-  - *Calculation queries:* Interactive calculator tool above the fold + worked formula example.
-  - *Process / How-to queries:* Numbered ordered lists with bold action verbs.
-  - *Definitional queries:* Inverted-pyramid glossary callout box.
+## 2. Verify
 
-### Lever 6: Internal Link Equity & Crawl Depth
-- **The Mechanic:** Click depth > 3 from the root domain diminishes crawl frequency and PageRank transfer.
-- **The Rule:** Hub-and-Spoke cluster architecture. Contextual in-content anchors with natural descriptive phrases (never generic "click here" or over-optimized exact-match keyword stuffing).
-
-### Lever 7: Anti-AI Footprint / Quality Filter
-- **The Mechanic:** Google's Helpful Content System penalizes synthetic boilerplate, predictable rhythm, and conversational chatbot filler.
-- **The Rule:** Purge AI conversational residue ("In today's fast-paced digital world", "Delve into", "A tapestry of", "Crucial to remember"). Maintain active voice, numerical precision, and varied sentence lengths.
-
----
-
-## 2. Pillar 1: Technical & AI Crawler Infrastructure
-
-### A. Dual-Engine Crawler Permissions (`robots.txt`)
-Ensure both search engine indexers and AI foundation crawlers are explicitly managed.
-
-```txt
-# Traditional Search Crawlers
-User-agent: Googlebot
-User-agent: Bingbot
-User-agent: Slurp
-User-agent: DuckDuckBot
-Allow: /
-
-# AI Search & Answer Engine Crawlers (Essential for GEO)
-User-agent: GPTBot
-User-agent: ChatGPT-User
-User-agent: ClaudeBot
-User-agent: PerplexityBot
-User-agent: Applebot-Extended
-User-agent: Google-Extended
-User-agent: Cohere-ai
-Allow: /
-
-# Sitemaps and AI Discovery
-Sitemap: https://yourdomain.com/sitemap_index.xml
-```
-
-### B. Standard `/llms.txt` and `/llms-full.txt`
-Every modern website must provide an `/llms.txt` file at the root to declare site hierarchy, key documentation, and structured entity entry points for LLMs.
-
-**Structure of `/llms.txt`:**
-```markdown
-# [Brand / Website Name]
-> [One-sentence declarative mission & entity description]
-
-## Core Hubs & Products
-- [Product / Tool Name](https://yourdomain.com/tools/slug/): Exact purpose and target query.
-- [Key Guide Title](https://yourdomain.com/guides/slug/): Definitive guide with statistics and benchmarks.
-
-## Structured APIs & Feeds
-- [Full Text Feed](https://yourdomain.com/llms-full.txt): Complete markdown compilation.
-- [Sitemap](https://yourdomain.com/sitemap.xml): XML sitemap.
-```
-
-### C. Core Web Vitals & Delivery Thresholds
-- **Largest Contentful Paint (LCP):** ≤ 2.0s (Critical for mobile rankings).
-- **Interaction to Next Paint (INP):** ≤ 200ms (Replaces FID).
-- **Cumulative Layout Shift (CLS):** ≤ 0.05.
-- **Time to First Byte (TTFB):** ≤ 400ms globally (Edge CDN caching required).
-- **Mobile Viewport:** Clean responsive CSS, `width=device-width, initial-scale=1.0`, zero horizontal overflow.
-- **Server Side Rendering (SSR):** Never rely purely on client-side JavaScript hydration for core text, headings, or structured data.
-
-### D. Multi-Region & International (Hreflang)
-- Self-referential hreflang tag required on every language/region variant.
-- Complete bidirectional return tags across all versions.
-- Default fallback specified via `hreflang="x-default"`.
-
----
-
-## 3. Pillar 2: Semantic Entity Schema Architecture (`@graph`)
-
-Do **not** output fragmented, disconnected schema blocks. Always generate a single, unified JSON-LD script using `@graph` notation. This establishes entity relationships between Organization, Website, Webpage, Author, and Content.
-
-### Standard Production-Grade JSON-LD Schema:
-```html
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Organization",
-      "@id": "https://yourdomain.com/#organization",
-      "name": "Your Brand Name",
-      "url": "https://yourdomain.com",
-      "logo": {
-        "@type": "ImageObject",
-        "@id": "https://yourdomain.com/#logo",
-        "url": "https://yourdomain.com/assets/logo.png",
-        "caption": "Your Brand Logo"
-      },
-      "sameAs": [
-        "https://www.wikidata.org/wiki/QXXXXXX",
-        "https://www.linkedin.com/company/yourbrand",
-        "https://en.wikipedia.org/wiki/Your_Brand"
-      ]
-    },
-    {
-      "@type": "WebSite",
-      "@id": "https://yourdomain.com/#website",
-      "url": "https://yourdomain.com",
-      "name": "Your Brand Name",
-      "publisher": { "@id": "https://yourdomain.com/#organization" },
-      "inLanguage": "en-US"
-    },
-    {
-      "@type": "Person",
-      "@id": "https://yourdomain.com/authors/jane-doe/#author",
-      "name": "Jane Doe, CPA",
-      "jobTitle": "Lead Tax & Real Estate Analyst",
-      "worksFor": { "@id": "https://yourdomain.com/#organization" },
-      "knowsAbout": ["Real Estate Tax", "Stamp Duty Calculation", "Indian Property Law"],
-      "sameAs": [
-        "https://www.linkedin.com/in/janedoe",
-        "https://twitter.com/janedoe"
-      ]
-    },
-    {
-      "@type": "WebPage",
-      "@id": "https://yourdomain.com/target-page/#webpage",
-      "url": "https://yourdomain.com/target-page/",
-      "name": "Target Page Title Matching H1 Exactly",
-      "isPartOf": { "@id": "https://yourdomain.com/#website" },
-      "about": { "@id": "https://yourdomain.com/#organization" },
-      "author": { "@id": "https://yourdomain.com/authors/jane-doe/#author" },
-      "datePublished": "2026-01-15T09:00:00+00:00",
-      "dateModified": "2026-03-01T14:30:00+00:00",
-      "breadcrumb": { "@id": "https://yourdomain.com/target-page/#breadcrumb" }
-    },
-    {
-      "@type": "BreadcrumbList",
-      "@id": "https://yourdomain.com/target-page/#breadcrumb",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": "https://yourdomain.com/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Category Hub",
-          "item": "https://yourdomain.com/category/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 3,
-          "name": "Target Page"
-        }
-      ]
-    },
-    {
-      "@type": "FAQPage",
-      "@id": "https://yourdomain.com/target-page/#faq",
-      "isPartOf": { "@id": "https://yourdomain.com/target-page/#webpage" },
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "What is the exact formula for X?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "The exact formula for X is A multiplied by B divided by C. For example, a 50 lakh asset under 5% rate yields 2.5 lakhs."
-          }
-        }
-      ]
-    }
-  ]
-}
-</script>
-```
-
----
-
-## 4. Pillar 3: Content Citability Rubric (The 0–100 Score)
-
-AI systems preferentially cite content with high extractability. Score content against these 5 categories:
-
-```
-┌─────────────────────────────────────────────────────────────────┐
-│              CITABILITY SCORING BREAKDOWN (0-100)               │
-├─────────────────────────────────────┬───────────────────────────┤
-│ 1. Answer Block Quality             │ 30 Points (P0)            │
-│ 2. Passage Self-Containment         │ 25 Points (P0)            │
-│ 3. Structural Readability & Tables  │ 20 Points (P1)            │
-│ 4. Statistical & Citation Density   │ 15 Points (P1)            │
-│ 5. Information Gain / Novel Data    │ 10 Points (P1)            │
-└─────────────────────────────────────┴───────────────────────────┘
-```
-
-### Category 1: Answer Block Quality (30 Points)
-- **90–100 pts:** Every major section opens with a 1–2 sentence direct answer. Uses clear definition formulas (`"[Subject] is [definition]."`). First 40–55 words stand alone as a complete, quotable answer.
-- **50–70 pts:** Answers are present but buried beneath background context or filler phrases.
-- **0–30 pts:** Pure narrative flow. Zero standalone extractable definitions.
-
-### Category 2: Passage Self-Containment (25 Points)
-- Every passage names its subject explicitly.
-- **Forbidden:** Beginning paragraphs with unresolved pronouns ("This indicates...", "It also means...", "They believe...").
-- **Allowed:** `"In Karnataka, property registration charges are..."`
-
-### Category 3: Structural Readability & Tables (20 Points)
-- Heading hierarchy: `H1` (exactly one) > `H2` (core user questions) > `H3` (supporting nuances). Never skip heading levels.
-- **Tables:** Mandatory for any comparison of 3+ entities, pricing tiers, statutory rates, or pros/cons. AI engines extract Markdown and HTML tables at a rate 3x higher than prose.
-- **Lists:** Ordered `<ol>` for chronological steps; unordered `<ul>` for feature sets.
-
-### Category 4: Statistical & Citation Density (15 Points)
-- Target: **3 to 5 verifiable data points** per 500 words.
-- Exact numbers, dates, statutory sections, and named institutions (e.g., `"Under Section 54F of the Income Tax Act, 1961..."` rather than `"Under tax laws..."`).
-
-### Category 5: Information Gain / Novelty (10 Points)
-- Contains at least 1 original calculation, proprietary data table, or unique counter-consensus analysis not present in top 3 ranking SERP competitors.
-
----
-
-## 5. Pillar 4: The Content Humanizer (Talking to a Real Human)
-
-Search engines rank pages for **humans**, not machines. If content reads like an AI textbook, corporate brochure, or keyword-stuffed whitepaper, readers bounce within 3 seconds, collapsing your NavBoost engagement score. Content must feel like a trusted, deeply knowledgeable advisor speaking directly to the reader across a desk.
-
-### The 6 Humanizer Laws:
-
-1. **Speak to "You" (1-on-1 Address):**
-   - Frame advice directly to the reader. Use second-person ("you", "your loan", "your decision").
-   - Acknowledge the human emotional reality: financial stress, fear of making a wrong purchase, time constraints, or regulatory confusion.
-
-2. **Intuitive Mental Models Over Dense Jargon:**
-   - Translate complex legal, tax, or technical statutes into everyday analogies and worked scenarios.
-   - *Robotic/AI:* "Amortization recalculation ensues post lump-sum principal curtailment, shifting the duration curve."
-   - *Humanizer:* "When you prepay ₹5 lakhs on your home loan, you have two choices: keep your EMI unchanged and close your loan 4 years earlier, or lower your monthly payment to free up cash today."
-
-3. **Vary Sentence Cadence & Rhythm (Kill the Monotony):**
-   - Break mechanical AI symmetry. Real human speech mixes short, punchy statements with descriptive, thoughtful explanations.
-   - Never allow three consecutive sentences to share identical lengths or grammatical structures. Use natural contractions ("you'll", "it's", "don't") where they sound authentic.
-
-4. **Zero Em Dashes in Web Copy:**
-   - Do not use em dashes (`—`) in published web copy. They are a universal footprint of AI-generated prose. Use clean periods, commas, or parentheses instead.
-
-5. **The Banned AI & Corporate Vocabulary List (Purge on Sight):**
-   - *Banned Openings:* "In today's fast-paced digital world", "When it comes to", "Navigating the complexities of", "Let's dive in", "It is important to remember".
-   - *Banned Inflated Buzzwords:* "delve", "tapestry", "robust", "seamless", "leverage", "unlock", "realm", "landscape", "crucial", "pivotal", "game-changer", "elevate", "embark", "testament".
-   - Replace every inflated word with the plainest, most concrete term that states the truth.
-
-6. **The Mandatory Ear-Test Read-Aloud:**
-   - Before publishing, read every draft aloud. If a sentence makes you pause, sounds pretentious, or is something you would never say out loud to a colleague or client, rewrite it immediately.
-
-### Factual Integrity & Compliance Boundaries:
-- Never fabricate personal anecdotes, client results, or track records.
-- Preserve mandatory statutory disclaimers verbatim:
-  - Tax: `Verify with your CA before acting.`
-  - Legal: `Verify with your lawyer before acting.`
-
----
-
-## 6. Pillar 5: Platform-Specific GEO Optimization Matrix
-
-Different AI answer engines use distinct retrieval and weighting mechanisms:
-
-| AI Platform | Index & Foundation | What Drives Selection & Citation | Mandatory Optimization Requirement |
-| :--- | :--- | :--- | :--- |
-| **Google AI Overviews (AIO)** | Google Search Index | 92% of citations come from top 10 organic SERP results. Favors directness and clarity. | Rank in top 10 organic. Use 45-word definition blocks directly under PAA-mirrored H2s. |
-| **ChatGPT Search** | Bing Search Index | Heavy entity weighting. 48% of cited domains link to Wikipedia, Wikidata, or high-authority press. | Verified Wikidata item + Bing Webmaster Tools setup + comprehensive 2,000+ word guides. |
-| **Perplexity AI** | Custom Web Index + Social APIs | Prioritizes community consensus, Reddit discussions, and content updated within the last 6 months. | Clear `dateModified`, active community validation (Reddit, HN, Quora), and primary empirical data. |
-| **Google Gemini** | Google Knowledge Graph + YouTube | Weights YouTube transcripts, Google Business Profile (GBP), and Schema `@graph` entity maps heavily. | Embed relevant YouTube video with timestamps/chapters + complete Organization/Person schema graph. |
-| **Bing Copilot** | Bing Index + IndexNow | Real-time freshness and rapid crawler discovery. | Instant URL submission via Bing IndexNow protocol upon publication. |
-
----
-
-## 7. Pillar 6: Specialized Verticals & Page Archetypes
-
-### Archetype A: Competitor Comparison & "Vs" Pages
-- **Title Structure:** `[Tool A] vs [Tool B]: 2026 Comparison, Pricing & Verdict`
-- **Lead Section:** 45-word direct verdict declaring which tool is superior for which specific use case.
-- **Comparison Table:** Full feature matrix with at least 5 dimensions (Pricing, Core Capabilities, Speed/Performance, Integrations, Best For).
-- **Schema:** `WebPage` + `FAQPage` + `Table` markup.
-
-### Archetype B: Programmatic Calculators & Interactive Tools
-- **Title Structure:** `[Topic] Calculator (2026, [Location/State]) | [Brand]`
-- **Lead Section:** 40–50 words stating what it calculates, the mathematical formula in 1 line, and 1 worked numerical example.
-- **Viewport Layout:** Interactive input sliders/fields above the fold on mobile. Zero scrolling required to calculate.
-- **Legal/Tax Disclaimer:** Explicit required line (e.g., `"Indicative only. Verify with your CA/lawyer before acting."`).
-- **Schema:** `SoftwareApplication` + `WebApplication` linked to parent `WebPage`.
-
-### Archetype C: Local Business & Maps (Local SEO)
-- **NAP Consistency:** Exact Name, Address, Phone format identical across Website, Google Business Profile, Apple Maps, and local citations.
-- **Geo-Coordinates:** Latitude/Longitude declared inside `LocalBusiness` schema.
-- **Local Service Schema:** Specific `areaServed` postal codes and neighborhood entities.
-
-### Archetype D: Ecommerce Product Pages
-- **Schema:** `Product` with complete `offers` array (`price`, `priceCurrency`, `availability`, `itemCondition`).
-- **Merchant Center:** Clear return policy, shipping details, and GTIN/MPN identifiers.
-- **Faceted Navigation:** Canonicalized parent category URLs to prevent index bloat from filter parameters.
-
----
-
-## 8. Pillar 7: SEO Drift & Deployment Quality Control
-
-Whenever code or content is deployed, run the **SEO Drift Protocol** to prevent silent ranking regressions:
+Run the executable check from the skill directory:
 
 ```bash
-# SEO Drift Verification Checklist:
-1. Canonical Tag Check: Verify rel="canonical" is absolute, HTTPS, and non-redirecting.
-2. Indexability Check: Ensure <meta name="robots" content="index, follow"> is present (no accidental staging "noindex").
-3. Schema Validation: Run schema payload through validator to verify zero broken @id links.
-4. Heading Audit: Verify exactly one H1 exists and no heading tags were converted to plain <div> or <span>.
-5. Status Code Audit: Verify 200 OK without intermediate 301/302 hops.
-6. Core Web Vitals Regression: Test mobile LCP on real throttled mobile connection.
+scripts/verify-page.sh 'https://example.com/page/'
 ```
 
----
+Exit 0 means the URL responded. Exit 2 means the fetch failed. The script reports pass/fail facts and prints `nt` for anything it did not do. It is not a rank checker.
 
-## 9. Pillar 8: Standardized Audit & Optimization Report
+Then close these checks. Each is `pass`, `fail`, or `NT`.
 
-When auditing or optimizing any page, format the findings using this executive template:
+1. **Rendered HTML.** The script reads the HTTP body only (`browser_render: nt`). If that body contains the main text, you may audit it and still mark the browser render `NT`. If the body is a JavaScript shell, content scores stay `NT` until you compare URL Inspection or a rendered DOM.
+2. **robots.txt, meta robots, and `X-Robots-Tag`.** `noindex` or `none` is `fail` when the URL should be indexed. A missing `index, follow` meta is `pass`: Google's default is `all`, and an explicit tag has no extra effect ([robots meta tag](https://developers.google.com/search/docs/crawling-indexing/robots-meta-tag), updated 2026-03-24). The more restrictive rule wins when both the header and the meta tag are set.
+3. **Canonical.** One absolute HTTPS URL, fetched without an error, and intentional if it differs from the final URL.
+4. **Sitemap.** The URL is in a sitemap declared from robots.txt. Membership `NT` if the sitemap is an index the script did not expand.
+5. **Schema.** JSON-LD parses. Every value is visible on the page and true. `sameAs` URLs were opened and name the same entity. See `references/schema.md`.
+6. **Internal links and orphans.** Count same-host links on the page. An orphan is a sitemap URL with no internal link from the crawled set. Without that crawl, orphan status is `NT`. A thin homepage link list is a lead, not an orphan list.
 
-```markdown
-# Modern SEO & Citability Audit: [Target URL]
+Crawler classes and the owner decision for training bots are in `references/platforms.md`. `llms.txt` is optional. Google Search ignores it and it does not change Google rankings (AI optimization guide; updates log 2026-06-15). If one exists, its claims must also be visible on the site.
 
-## 1. Executive Scorecard
-- **Overall Modern Search Score:** [Score]/100
-- **Traditional Technical SEO Score:** [Score]/50
-- **AI Answer Engine Citability Score:** [Score]/50
-- **Indexing Status:** [Indexed / Blocked / Canonical Issue]
-- **Primary Keyword / Target Entity:** [Entity Name]
+## 3. Experience, expertise, authoritativeness, trust
 
-## 2. Critical Blockers (P0 - Fix Immediately)
-- [List any indexation, canonical, schema, or crawl issues stopping Google/AI bots]
+E-E-A-T is not a ranking score. Google's systems give more weight to these qualities on Your Money or Your Life topics. Trust matters most ([helpful content](https://developers.google.com/search/docs/fundamentals/creating-helpful-content)).
 
-## 3. Algorithmic Ranking Improvements (P1)
-- **Information Gain Additions:** [Specific primary data or calculations to add]
-- **Passage Extractability Rewrites:**
-  - *Current Section Heading:* "[Heading]"
-  - *Before (Uncitabile):* "[Current prose]"
-  - *After (Quote-Ready 45-Word Answer):* "[Rewritten 45-word direct answer]"
+Judge four visible things:
 
-## 4. Structured Data Payload (@graph)
+- **Experience.** The page shows what the publisher did, where, and what they found. A byline that a reader can follow is the "who".
+- **Qualified review.** Legal, tax, structural, or medical claims name a qualified reviewer, or the page says it is not that advice.
+- **Primary evidence.** A document, calculation, dated observation, or method a reader can inspect. Attribution does not replace original work.
+- **Corrections.** YMYL pages link to a visible corrections policy, or show a dated correction.
+
+Do not require a Wikidata item, a 2,000-word length, or a ban on em dashes. Google says there is no preferred word count and no requirement to chunk pages. Plain language is an editing choice: address the reader when you are advising them, keep statutory disclaimers, and do not invent client results.
+
+## 4. Score
+
+Two outputs. Do not blend them, and do not publish a `/50` technical score.
+
+**Technical checks** stay `pass` / `fail` / `NT` from section 2.
+
+**Citability** is five categories. Each tested category is an integer `0–10` or `NT`. Weights sum to 100.
+
+| Id | Weight | Points | Evidence to file |
+| --- | --- | --- | --- |
+| answer | 30 | `floor(10 × hits / n + 0.5)` | First `n` H2s in order, `n = min(8, count)`. No H2s: use the block under the H1 and `n = 1`. A hit: the first sentence states the heading's conclusion. |
+| contain | 25 | `floor(10 × passes / n + 0.5)` | First 8 paragraphs of at least 20 words, or fewer if the page has fewer. `n` is the sample size. A pass: the first sentence does not use it, this, they, these, those, we, our, or I unless that paragraph names the referent. |
+| structure | 20 | Start at 10, floor at 0 | Heading outline. Subtract 4 if H1 count is not 1. Subtract 2 if a level is skipped. Subtract 2 if a comparison of 3+ items has no table, list, or heading per item. Subtract 2 if a step sequence is prose and the page has no ordered list. |
+| sourced | 15 | `0` if no checkable claims; else `floor(10 × sourced / n + 0.5)` | Up to 8 claims that state a number, date, price, statute, or registration. `n` is how many you examined. Sourced means a document name, statute, or URL sits next to the claim. The publisher's own price counts when the page states it as their price. |
+| original | 10 | 10, 5, or 0 | 10: a method, dataset, calculation, or first-hand observation, with how it was produced, absent from every competitor page you opened. 5: the publisher's own worked example of a method competitors also use. 0: restates those pages. |
+
+`NT` if that evidence was not collected. `original` is `NT` when the competitor URLs were not opened. Do not turn `NT` into 0.
+
+```
+raw = sum(points / 10 × weight) for tested categories
+coverage = sum(weight) for tested categories
+overall = floor(100 × raw / coverage + 0.5) if coverage ≥ 60 else NT
+```
+
+`coverage` is how much of the rubric you tested, not a quality score. Report every category as `points/10` or `NT`, plus `coverage` and `overall`.
+
+## 5. Evidence ledger
+
+Every number in the report is a row. No row, no number.
+
+| Id | Claim | Evidence | Source | Retrieved | Status |
+| --- | --- | --- | --- | --- | --- |
+| L1 | One sentence | What you saw, and where | Document or URL | YYYY-MM-DD | `verified`, `hypothesis`, or `nt` |
+
+`hypothesis` requires a named document and a date. A row without both is dropped, not guessed.
+
+## 6. Measure
+
+Do not invent a lift.
+
+- **Search Console.** The Performance report's Web type includes AI Overviews and AI Mode in the aggregate (AI features doc, 2025-12-10). The Generative AI performance report splits that traffic out (AI optimization guide, 2026-07-10). Read both before describing a change. `NT` without access.
+- **Bing Webmaster.** Queries and index coverage. `NT` without access.
+- **Conversions.** One defined action (form submit, booking, purchase). Report the count and the definition together.
+- **AI referrals.** Session hostnames such as `chatgpt.com`, `perplexity.ai`, `gemini.google.com`, and `copilot.microsoft.com`. Say that stripped referrers under-count.
+- **Citation sampling.** Freeze the query list, engines, locale, and date. Save the response. Record the cited URL or "not cited". Repeat that same list. One pass is a sample. It is not an input to `overall`.
+
+## 7. Report
+
+Use this template. The outer fence is four backticks so the schema sample stays inside it.
+
+````markdown
+# Audit: [final URL]
+
+## Intake
+URL, market, intent, competitors, access, baseline, training choice, corrections policy.
+
+## Technical checks
+| Check | Result | Evidence |
+| --- | --- | --- |
+| Rendered HTML | pass / fail / NT | |
+| robots / X-Robots-Tag | pass / fail / NT | |
+| Canonical | pass / fail / NT | |
+| Sitemap | pass / fail / NT | |
+| Schema matches visible text | pass / fail / NT | |
+| Internal links / orphans | pass / fail / NT | |
+
+## Citability
+| Category | Points | Weight | Evidence id |
+| --- | --- | --- | --- |
+| answer | 0–10 or NT | 30 | |
+| contain | 0–10 or NT | 25 | |
+| structure | 0–10 or NT | 20 | |
+| sourced | 0–10 or NT | 15 | |
+| original | 0–10 or NT | 10 | |
+
+coverage: [n]/100
+overall: [n] or NT
+formula: floor(100 × raw / coverage + 0.5)
+
+## Ledger
+[table from section 5]
+
+## Changes
+Quote the current sentence, then the proposed sentence. Mark the proposal as a draft.
+
 ```html
 <script type="application/ld+json">
-[Drop complete zero-error JSON-LD @graph snippet here]
+{"@context":"https://schema.org","@type":"WebPage","@id":"https://example.com/page/#webpage"}
 </script>
 ```
 
-## 5. Machine Discovery & AI Crawlers
-- [ ] Robots.txt allows GPTBot, ClaudeBot, and PerplexityBot
-- [ ] `/llms.txt` entry added and verified
-- [ ] Bing IndexNow ping dispatched
+## Measurement
+Search Console, Bing, conversions, AI referrals, citation sample. Use NT where access is missing.
 
-## 6. Prioritized Action Checklist
-- [ ] [P0] Step 1
-- [ ] [P1] Step 2
-- [ ] [P2] Step 3
-```
+## Still not tested
+[list]
+````
